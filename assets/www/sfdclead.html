@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
+    <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+    <META HTTP-EQUIV="Content-type" CONTENT="text/html; charset=UTF-8">
+</head>
+<script>
+$( "form" ).submit(function( event ) {
+  if ( $( "input:fullname" ).val() != " ) {
+    $( "span" ).text( "Validated..." ).show();
+    return;
+  }
+
+  $( "span" ).text( "Not valid!" ).show().fadeOut( 1000 );
+  event.preventDefault();
+});
+</script>
+<body>
+<div data-role="page">
+    <div data-role="header" data-theme="b" data-position="fixed">
+        <h1>Create Case in SFDC </h1>
+    </div>
+    <div data-role="main" class="ui-content">
+        <form action="https://www.salesforce.com/servlet/servlet.WebToLead?encoding=UTF-8" method="POST">
+
+            <input type=hidden name="oid" value="00D37000000IpsS">
+            <input type=hidden name="retURL" value="">
+
+            <div class="ui-field-contain">
+                <label for="fullname">Full name:</label>          <input type="text" name="fullname" id="fullname">
+
+                <label for="last_name">Last Name</label><input  id="last_name" maxlength="80" name="last_name" size="20" type="text" />
+
+                <label for="email">Email</label><input  id="email" maxlength="80" name="email" size="20" type="text" />
+
+                <label for="company">Company</label><input  id="company" maxlength="40" name="company" size="20" type="text" />
+
+                <label for="city">City</label><input  id="city" maxlength="40" name="city" size="20" type="text" />
+
+                <label for="state">State/Province</label><input  id="state" maxlength="20" name="state" size="20" type="text" />
+
+                <br>
+            </div>
+            <input type="submit" data-inline="true" value="Submit">
+        </form>
+    </div>
+    <div data-role="footer" data-theme="b"  data-position="fixed">
+        <h1>Contact : Udai
+            <a class="ui-btn ui-corner-all ui-icon-location ui-btn-icon-notext" href="http://maps.google.com/maps?q=100 Erin ln,nashville tn 37221"></a>
+            &nbsp;<a class="ui-btn ui-icon-mail ui-icon-location  ui-btn-icon-notext" href="mailto:s.udhayaganesh@gmail.com"></a>
+            &nbsp;<a class="ui-btn ui-icon-phone ui-icon-location  ui-btn-icon-notext" href="tel:+14802655402"></a>
+            &nbsp;<a class=" ui-btn ui-icon-comment   ui-btn-icon-notext" href="https://www.facebook.com/udhayaganesh"></a>
+        </h1>
+    </div>
+</div>
+</body>
+</html>

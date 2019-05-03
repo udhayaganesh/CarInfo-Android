@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Google Maps - jQuery Mobile Demos</title>
+	<style>
+		#map {
+		height: 100%;
+		}
+		#map-page, #map-canvas { width: 100%; height: 100%; padding: 0; }
+	</style>
+	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
+	<!-- Include the jQuery library -->
+	<script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+	<!-- Include the jQuery Mobile library -->
+	<script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+	<script type="text/javascript" src="cordova.js"></script>
+	<script type="text/javascript" src="js/index.js"></script>
+	<link rel="stylesheet" type="text/css" href="css/index.css">
+	<script src="http://maps.google.com/maps/api/js?sensor=false"></script>
+	<script>
+
+	$( document ).on( "pageinit", "#map-page", function() {
+		var defaultLatLng = new google.maps.LatLng(34.0983425, -118.3267434);  // Default to Hollywood, CA when no geolocation support
+		//alert(navigator.geolocation );
+		//alert(pos);
+		if ( navigator.geolocation ) {
+			function success(pos) {
+				// Location found, show map with these coordinates
+				drawMap(new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude));
+			}
+
+			function fail(error) {
+				drawMap(defaultLatLng);  // Failed to find location, show default map
+			}
+
+			// Find the users current position.  Cache the location for 5 minutes, timeout after 6 seconds
+			navigator.geolocation.getCurrentPosition(success, fail, {maximumAge: 500000, enableHighAccuracy:true, timeout: 6000});
+		} else {
+			drawMap(defaultLatLng);  // No geolocation support, show default map
+		}
+
+		function drawMap(latlng) {
+			var myOptions = {
+				zoom: 10,
+				center: latlng,
+				mapTypeId: google.maps.MapTypeId.ROADMAP
+			};
+
+			var map = new google.maps.Map(document.getElementById("map-canvas"), myOptions);
+
+			// Add an overlay to the map of current lat/lng
+			var marker = new google.maps.Marker({
+				position: latlng,
+				map: map,
+				title: "Greetings!"
+			});
+		}
+
+	});
+	</script>
+<!--<script>
+	function initMap() {
+	var map = new google.maps.Map(document.getElementById('map'), {
+	center: {lat: 34.097, lng: -118.327},
+	zoom: 6
+	});
+	var infoWindow = new google.maps.InfoWindow({map: map});
+
+	// Try HTML5 geolocation.
+	if (navigator.geolocation) {
+	navigator.geolocation.getCurrentPosition(function(position) {
+	var pos = {
+	lat: position.coords.latitude,
+	lng: position.coords.longitude
+	};
+
+	infoWindow.setPosition(pos);
+	infoWindow.setContent('Location found.');
+	map.setCenter(pos);
+	}, function() {
+	handleLocationError(true, infoWindow, map.getCenter());
+	});
+	} else {
+	// Browser doesn't support Geolocation
+	handleLocationError(false, infoWindow, map.getCenter());
+	}
+	}
+
+	function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+	infoWindow.setPosition(pos);
+	infoWindow.setContent(browserHasGeolocation ?
+	'Error: The Geolocation service failed.' :
+	'Error: Your browser doesn\'t support geolocation.');
+	}
+</script>-->
+</head>
+<body>
+
+<div data-role="page" class="jqm-demos">
+	<div data-theme="b" data-role="header" data-position="fixed">
+		<h1>Map Current Location</h1>
+	</div>
+
+	<div role="main" class="ui-content jqm-content">
+		<a href="#map-page" data-ajax="false" rel="external" data-transition="slide"  data-theme="b" class="ui-shadow ui-btn ui-corner-all ui-btn-inline ui-mini ui-icon-arrow-r ui-btn-icon-right">Double Click Here to View Map</a>
+	</div>
+	<div data-role="footer" data-theme="b"  data-position="fixed">
+		<h1>Contact : Udai
+			<a class="ui-btn ui-corner-all ui-icon-location ui-btn-icon-notext" href="http://maps.google.com/maps?q=100 Erin ln,nashville tn 37221"></a>
+			&nbsp;<a class="ui-btn ui-icon-mail ui-icon-location  ui-btn-icon-notext" href="mailto:s.udhayaganesh@gmail.com"></a>
+			&nbsp;<a class="ui-btn ui-icon-phone ui-icon-location  ui-btn-icon-notext" href="tel:+14802655402"></a>
+			&nbsp;<a class=" ui-btn ui-icon-comment   ui-btn-icon-notext" href="https://www.facebook.com/udhayaganesh"></a>
+		</h1>
+	</div>
+
+</div>
+<div data-role="page" id="map-page">
+	<div data-role="header" data-theme="a">
+		<h1>Maps</h1>
+	</div>
+	<!--<div id="map"></div>-->
+	<div role="main" class="ui-content" id="map-canvas">
+		<!-- map loads here... -->
+	</div>
+</div>
+</body>
+</html>
